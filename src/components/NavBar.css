@@ -10,6 +10,8 @@ nav.nav-header label {
     font-size: 16pt;
     padding-right: 0.5em;
 }
+
+/* sometimes this overflows, but it looks kind of good that way. */
 nav.nav-header input {
     border-radius: 0.3rem;
     background-color: beige;
