@@ -1,0 +1,93 @@
+/* mobile first css grid & NO IE SUPPORT WOOHOO!!!
+   css grid handles layout and spacing of cards.
+*/
+#cardGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column-gap: 2rem;
+    grid-row-gap: 2rem;
+    padding: 2rem;
+    font-size: 18pt;
+    align-items: stretch;
+    margin-bottom: 6rem;
+}
+
+@media (min-width: 31rem) {
+    #cardGrid table th {
+        min-width: 5em;
+    }
+}
+
+/* shifted from px after seeing this was catching on iPhone portrait...
+   appears to scale well for a11y purposes, not sure px do.
+ */
+@media (min-width: 62rem) {
+    #cardGrid {
+        grid-template-columns: 1fr 1fr;
+        font-size: 14pt;
+    }
+}
+
+@media (min-width: 83rem) {
+    #cardGrid {
+        grid-template-columns: 1fr 1fr 1fr;
+
+    }
+}
+
+@media (min-width: 104rem) {
+    #cardGrid {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    }
+}
+
+/* card css -
+   slightly rounded edges, shadow, and angled linear gradient for a natural look
+   would be cool to make a card back pattern - https://repper.app/
+   and a card flipping effect later - https://www.w3schools.com/howto/howto_css_flip_card.asp
+ */
+#cardGrid > * {
+    grid-column: span 1;
+    box-shadow: 0 0.4rem 0.8rem 0 rgba(0, 0, 0, 0.9), 0 0.6rem 2rem 0 rgba(0, 0, 0, 0.27);
+    margin: 0;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background: rgb(53,44,107);
+    background: linear-gradient(114deg, rgba(53,44,107,1) 0%, rgba(78,62,180,1) 12%, rgba(61,51,125,1) 100%);
+    text-align: center;
+}
+
+/* images need to be responsive so width, and come in at inconsistent sizes so height.
+   unfortunately, the images are the whole card and not the card graphic.
+ */
+#cardGrid img {
+    max-width: 100%;
+    max-height: 580px;
+}
+
+#cardGrid table {
+    text-align: left;
+    border-radius: 0.5rem;
+    border: 3px double #ccc;
+    padding: 0.5em;
+    background-color: beige;
+    margin: auto;
+}
+
+/* TBD: double check webpack bundling fonts.
+ */
+#cardGrid table th {
+    font-family: 'Lobster', cursive;
+    text-align: right;
+    /* this did not perform for older phones */
+    /* min-width: 5em; */
+}
+
+#cardGrid table th::after {
+    content: ":";
+}
+
+#cardGrid table td {
+    padding: 0.4em;
+}
