@@ -10,6 +10,7 @@
     font-size: 18pt;
     align-items: stretch;
     margin-bottom: 6rem;
+    margin-top: 3rem;
 }
 
 @media (min-width: 31rem) {
