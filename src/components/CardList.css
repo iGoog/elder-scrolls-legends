@@ -81,13 +81,9 @@
     height: 18rem;
 }
 
-/* TBD: double check webpack bundling fonts.
- */
 #cardGrid table th {
     font-family: 'Lobster', cursive;
     text-align: right;
-    /* this did not perform for older phones */
-    /* min-width: 5em; */
 }
 
 #cardGrid table th::after {

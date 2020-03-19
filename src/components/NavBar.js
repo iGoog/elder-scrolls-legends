@@ -7,6 +7,7 @@ const NavBar = props => {
     const [nameSearchInput, setNameSearchInput] = useState('');
     const nameSearchRef = useRef();
 
+    // call search with the input after giving the user some time to stop typing.
     useEffect(() => {
         const debounced = setTimeout(() => {
             if (nameSearchInput === nameSearchRef.current.value) {

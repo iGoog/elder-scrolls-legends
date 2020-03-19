@@ -68,7 +68,7 @@ function App() {
               nextState.search = action.search;
               const cachedResults = nextState.cardCache.get(action.search);
               if (cachedResults) {
-                  Object.assign(nextState, cachedResults); // fire setters, no ...spread
+                  Object.assign(nextState, cachedResults);
               } else {
                   Object.assign(nextState, freshCardState);
                   nextState.searching = true;
@@ -107,9 +107,11 @@ function App() {
 
   }, [cardState.end, cardState.loading, cardState.page, cardState.search]);
 
+  // no dependency load effects need this handler for linting.
   const useMountEffect = (fun) => useEffect(fun, []);
   useMountEffect(cardUpdateHandler);
 
+  // if page is resized, recalculate scrolling data & load more content if necessary
   useEffect(() => {
       const onResize = () => {
           dispatch({type: 'VIEWER_RESIZE'});
@@ -121,6 +123,7 @@ function App() {
       return () => window.removeEventListener('resize', onResize);
   }, [cardState.end, cardState.loading, cardState.targetScrollY, cardState.page, cardState.search, cardUpdateHandler]);
 
+  // displayReducer keeps track of the scroll target in cardState, triggers update when scrolled far enough.
   useEffect(() => {
       const onScroll = () => {
           if (window.scrollY >= cardState.targetScrollY) {
