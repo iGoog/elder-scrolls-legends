@@ -3,7 +3,7 @@ import './Nav.css';
 import './NavFoot.css';
 
 const NavFoot = props => (
-    <nav class="footNav"></nav>
+    <nav className="nav-thinking footNav"></nav>
 );
 
 export default NavFoot;
