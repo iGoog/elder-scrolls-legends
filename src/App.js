@@ -1,6 +1,5 @@
 import React, { useReducer, useEffect, useMemo, useCallback } from 'react';
 import './App.css';
-// import * as mockData from './mock/cards.json';
 import CardList from "./components/CardList";
 import NavBar from "./components/NavBar";
 import NavFoot from "./components/NavFoot";
@@ -72,14 +71,15 @@ function App() {
                   Object.assign(nextState, cachedResults); // fire setters, no ...spread
               } else {
                   Object.assign(nextState, freshCardState);
-                  nextState.loading = true;
                   nextState.searching = true;
               }
               return nextState;
           case 'ERROR':
+              console.log(action.errorMessage);
               if (!nextState.end ) {
                   if (nextState.retryBreaker-- <= 0) {
                       nextState.end = true;
+                      alert('Unable to pull card data');
                   }
                   updateCache(nextState);
               }
@@ -93,17 +93,19 @@ function App() {
   const [cardState, dispatch] = useReducer(displayReducer, initialDisplayState);
 
   const cardUpdateHandler = useCallback (() => {
-      if (!cardState.loading) {
+      if (!cardState.end && !cardState.loading) {
           dispatch({type: 'REQUEST'});
           fetchCards(cardState.page, cardState.search).then(res => {
               return res.json();
           }).then(data => {
               dispatch({type: 'RESPONSE', cards: data.cards});
               dispatch({type: 'VIEWER_RESIZE'});
+          }).catch(error => {
+              dispatch({type: 'ERROR', errorMessage: error.message});
           });
       }
 
-  }, [cardState.loading, cardState.page, cardState.search]);
+  }, [cardState.end, cardState.loading, cardState.page, cardState.search]);
 
   const useMountEffect = (fun) => useEffect(fun, []);
   useMountEffect(cardUpdateHandler);
@@ -117,7 +119,7 @@ function App() {
       }
       window.addEventListener('resize', onResize);
       return () => window.removeEventListener('resize', onResize);
-  }, [cardState.loading, cardState.targetScrollY, cardState.page, cardState.search, cardUpdateHandler]);
+  }, [cardState.end, cardState.loading, cardState.targetScrollY, cardState.page, cardState.search, cardUpdateHandler]);
 
   useEffect(() => {
       const onScroll = () => {
@@ -130,7 +132,12 @@ function App() {
       return () =>  {
           window.removeEventListener('scroll', onScroll);
       }
-  }, [cardState.loading, cardState.targetScrollY, cardState.page, cardState.search, cardUpdateHandler]);
+  }, [cardState.end, cardState.loading, cardState.targetScrollY, cardState.page, cardState.search, cardUpdateHandler]);
+
+  const searchHandler = (searchQuery) => {
+      dispatch({type: 'SEARCH', search: searchQuery});
+      if (cardState.searching) cardUpdateHandler();
+  }
 
   const cardListComponent = useMemo(
       () => <CardList cardList={cardState.cards}/>,
@@ -139,7 +146,7 @@ function App() {
 
   return (
     <div className="App">
-        <NavBar searching={cardState.searching}/>
+        <NavBar search={searchHandler} searching={cardState.searching}/>
         {cardListComponent}
         { cardState.loading && <NavFoot/> }
 
