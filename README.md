@@ -1,4 +1,37 @@
+## [See it live - https://eslegends.netlify.com/](https://eslegends.netlify.com/)
+
+
+
+## Instructions: 
+Check out the project with git, load the dependencies, and run it with npm:
+
+<pre>
+git clone https://github.com/iGoog/elder-scrolls-legends.git
+cd elder-scrolls-legends
+npm install
+npm start
+</pre>
+
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You may need to update your npm version to a version compatible with it. 
+
+## Notes
+
+I took advantage of not supporting IE and went forward with a CSS Grid based design. I'm quite
+happy with how the design turned out. Pay attention to the color shifting search and bottom bar pacifiers
+when searching and loading.
+There's a little bit of wonkyness with the height of the search input when it comes to running it
+in iOS, but I am happy with how it looks. I think it would look awesome to add some card flipping animations.
+
+In terms of code, I dove straight into React. The state management is heavily in the top level App.js
+and the main reducer could probably be broken out into a custom hook. I feel like the hooks should be cleaner,
+but they're pretty new to me. Adding tests would also be a good idea. I hooked it up to Netlify and was able configure 
+it to use Continuous Deployment. I was also able to test applying branch pull requests and previews 
+as a part of the process. 
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1daf3daf-2df3-4982-8773-fa285bcf9821/deploy-status)](https://app.netlify.com/sites/eslegends/deploys)
 
 ## Available Scripts
 
