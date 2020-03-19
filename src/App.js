@@ -142,6 +142,7 @@ function App() {
         <NavBar searching={cardState.searching}/>
         {cardListComponent}
         { cardState.loading && <NavFoot/> }
+
     </div>
   );
 }
