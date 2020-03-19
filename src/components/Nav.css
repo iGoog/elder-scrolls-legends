@@ -5,6 +5,9 @@ nav {
     background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(72,61,139,1) 50%, rgba(92,11,38,1) 100%);
     background-size: 400% 400%;
 
+}
+
+.nav-thinking {
     -webkit-animation: NavThinking 3s ease infinite;
     -moz-animation: NavThinking 3s ease infinite;
     animation: NavThinking 3s ease infinite;
